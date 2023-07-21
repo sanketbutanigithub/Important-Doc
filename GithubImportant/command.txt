@@ -1,0 +1,32 @@
+1) git init
+2) git add
+3) git status
+4) git checkout <branch_name> (move to other branch)
+5) git branch <branch_name> (create new branch)
+6) git commit -m "message"
+
+7) git remote add origin <url>
+8) git push -u origin <branch_name>
+9) git remote remove origin (Remove remote url)
+10) git remote -v (check which remote is added in project)
+
+For check account detail
+1) git config --list
+
+----> For change username 
+git config --global user.name "username"
+
+----> For change email
+git config --global user.email "user_email"
+
+1) For check username of git
+---> git config user.name
+
+2) For check email of git
+---> git config user.email
+
+
+Clone submodule
+
+1) git submodule init zype-processes
+2) git submodule update --init -- zype-processes
