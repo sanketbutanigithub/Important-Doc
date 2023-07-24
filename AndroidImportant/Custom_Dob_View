@@ -1,0 +1,75 @@
+Step 1 - Create TextWatcher Classs
+
+public class TextWatcherForFields implements TextWatcher {
+        private final EditText currentEditText;
+        private final EditText nextEditText;
+
+        TextWatcherForFields(EditText currentEditText, EditText nextEditText) {
+            this.currentEditText = currentEditText;
+            this.nextEditText = nextEditText;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if (editable.length() == 1 && nextEditText != null) {
+                nextEditText.requestFocus();
+            }
+            ChangeContinueButtonStyle();
+        }
+    }
+
+
+
+Step 2 - Create BackspaceListener Class
+
+public class BackspaceListener implements View.OnKeyListener {
+        private final EditText currentEditText;
+        private final EditText previousEditText;
+
+        BackspaceListener(EditText currentEditText, EditText previousEditText) {
+            this.currentEditText = currentEditText;
+            this.previousEditText = previousEditText;
+        }
+
+        @Override
+        public boolean onKey(View view, int keyCode, KeyEvent keyEvent) {
+            if (keyCode == KeyEvent.KEYCODE_DEL
+                    && currentEditText.getText().length() == 0
+                    && previousEditText != null) {
+                previousEditText.requestFocus();
+                return true;
+            }
+            return false;
+        }
+    }
+
+
+
+
+Step 3 - Assign Textwatcher class to edittext
+
+binding.dayET1Id.addTextChangedListener(new TextWatcherForFields(binding.dayET1Id, binding.dayET2Id));
+binding.dayET2Id.addTextChangedListener(new TextWatcherForFields(binding.dayET2Id, binding.monthET1Id));
+
+
+Step 4 ; Assign BackspaceListener to edittext
+
+binding.dayET1Id.setOnKeyListener(new BackspaceListener(binding.dayET1Id, null));
+binding.dayET2Id.setOnKeyListener(new BackspaceListener(binding.dayET2Id, binding.dayET1Id));
+
+
+
+
+
+
+Note : 
+1) in step 3 when you pass argument first arg will currentEditext and second arugument is nextEditText if there is not next edittext pass null
+2) in step 4 when you pass argument first arg will currentEdittext and second arg will be prevEditText(where you want to go when use click backButton from keyboard) if there is not prevEditText pass null
